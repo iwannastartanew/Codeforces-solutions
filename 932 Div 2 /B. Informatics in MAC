@@ -1,0 +1,62 @@
+#include <iostream>
+#include <vector>
+#include <unordered_map>
+//using i64 = long long;
+
+void solve() x{
+    int n;
+    std::cin >> n;
+
+    std::vector<int> a(n);
+    for (int i = 0; i < n; i++) {
+        std::cin >> a[i];
+    }
+
+    std::unordered_map<int, int> cnt;
+    std::vector<int> pre(n), suf(n);
+
+    int x = 0;
+    for (int i = 1; i < n; i++) {
+        cnt[a[i - 1]]++;
+        while (cnt[x]) {
+            x++;
+        }
+        pre[i] = x;
+    }
+
+    x = 0;
+    cnt.clear();
+    for (int i = n - 1; i > 0; i--) {
+        cnt[a[i]]++;
+        while (cnt[x]) {
+            x++;
+        }
+        suf[i] = x; //store the MEX of the suffix
+    }
+
+    for (int i = 1; i < n; i++) {
+        if (pre[i] == suf[i]) { //check if MEX of prefix equals MEX of suffix
+            std::cout << 2 << "\n";
+            std::cout << 1 << " " << i << "\n";
+            std::cout << i + 1 << " " << n << "\n";
+            return;
+        }
+    }
+
+    std::cout << -1 << "\n"; //if no suitable division exists, output -1
+}
+
+int main()
+{
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+
+    int t;
+    std::cin >> t;
+
+    while (t--) {
+        solve();
+    }
+
+    return 0;
+}
