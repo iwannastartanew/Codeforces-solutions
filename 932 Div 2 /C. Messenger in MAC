@@ -87,7 +87,8 @@ public:
 };
 FastIO fastio;
 
-int main() {
+int main()
+{
     int mod = 1e9 + 7;
     int T;
     cin >> T;
